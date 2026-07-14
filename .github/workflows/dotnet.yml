@@ -24,23 +24,27 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
 
+    # ✅ NEW STEP (RUN YOUR APP)
+    - name: Run Application
+      run: dotnet run --project dotnet-demo.csproj --configuration Release
+
     # ✅ Don't break pipeline on lint
     - name: Lint Check
       run: dotnet format --verify-no-changes
       continue-on-error: true
 
-    # ✅ Force correct output directory
+    # ✅ Run Tests
     - name: Run Tests
       run: |
-        dotnet test \
+        dotnet test Tests/Tests.csproj \
         --logger "trx;LogFileName=test-results.trx" \
         --results-directory ./TestResults
 
-    # ✅ Debug step (IMPORTANT)
+    # ✅ Debug step
     - name: List Files
       run: ls -R
 
-    # ✅ Correct path
+    # ✅ Publish results
     - name: Publish Test Results
       uses: dorny/test-reporter@v1
       if: always()
