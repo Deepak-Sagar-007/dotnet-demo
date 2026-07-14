@@ -1,4 +1,5 @@
-﻿var taskManager = new TaskManager();
+using System;
+var taskManager = new TaskManager();
 
 Console.WriteLine("Task Tracker Demo");
 Console.WriteLine("=================");
