@@ -28,12 +28,12 @@ jobs:
       run: dotnet format --verify-no-changes
 
     - name: Run Tests
-      run: dotnet test --logger "trx"
+      run: dotnet test --logger "trx;LogFileName=test-results.trx"
 
     - name: Publish Test Results
       uses: dorny/test-reporter@v1
       if: always()
       with:
         name: Test Results
-        path: '**/*.trx'
+        path: "**/test-results.trx"
         reporter: dotnet-trx
