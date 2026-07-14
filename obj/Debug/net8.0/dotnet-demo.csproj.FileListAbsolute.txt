@@ -1,0 +1,5 @@
+F:\Practice\commands\sharedjenkinsrepo\dotnet-demo\obj\Debug\net8.0\dotnet-demo.GeneratedMSBuildEditorConfig.editorconfig
+F:\Practice\commands\sharedjenkinsrepo\dotnet-demo\obj\Debug\net8.0\dotnet-demo.AssemblyInfoInputs.cache
+F:\Practice\commands\sharedjenkinsrepo\dotnet-demo\obj\Debug\net8.0\dotnet-demo.AssemblyInfo.cs
+F:\Practice\commands\sharedjenkinsrepo\dotnet-demo\obj\Debug\net8.0\dotnet-demo.csproj.CoreCompileInputs.cache
+F:\Practice\commands\sharedjenkinsrepo\dotnet-demo\obj\Debug\net8.0\dotnet-demo.sourcelink.json
