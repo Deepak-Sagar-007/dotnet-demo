@@ -1,36 +1,39 @@
-name: .NET Console CI
+name: .NET CI Pipeline
 
 on:
   push:
-    branches: [main, master]
-    paths:
-      - 'dotnet-console-app/**'
-      - '.github/workflows/dotnet-console.yml'
+    branches: [main]
   pull_request:
-    branches: [main, master]
-    paths:
-      - 'dotnet-console-app/**'
-      - '.github/workflows/dotnet-console.yml'
-  workflow_dispatch:
 
 jobs:
-  build-and-run:
+  build-test:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore dotnet-console-app/dotnet-console-app.csproj
+    - name: Restore
+      run: dotnet restore
 
-      - name: Build application
-        run: dotnet build dotnet-console-app/dotnet-console-app.csproj --configuration Release --no-restore
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
 
-      - name: Run application
-        run: dotnet run --project dotnet-console-app/dotnet-console-app.csproj --configuration Release --no-buildssssss
+    - name: Lint Check
+      run: dotnet format --verify-no-changes
+
+    - name: Run Tests
+      run: dotnet test --logger "trx"
+
+    - name: Publish Test Results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Test Results
+        path: '**/*.trx'
+        reporter: dotnet-trx
